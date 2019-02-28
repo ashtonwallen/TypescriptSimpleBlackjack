@@ -1,8 +1,11 @@
 
-var deck: string[] = 
-["2","3","4","5","6","7","8","9","10","J","Q","K","A"];
-var playerHand: Array<string> = new Array();
-var dealerHand: Array<string> = new Array();
+var deck: string[];
+var playerHand: Array<string> = new Array()
+var dealerHand: Array<string> = new Array()
+
+function initializeDeck() {
+    deck = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+}
 
 function drawCard(player: boolean){
     if (player){
@@ -45,33 +48,34 @@ function calculateScore(player: boolean): number {
         switch (card){
             case "A":
                 hasAce = true
-                break;
+                break
             case "K":
-                score += 10
-                break;
             case "Q":
-                score += 10
-                break;
             case "J":
                 score += 10
-                break;        
+                break     
             default:
                 score += Number(card)
-                break;
+                break
         }
+    }
 
-        if (hasAce){
+        if (hasAce) {
             if ((score + 11) > 21)
+            {
                 score += 1
-            else
+            }
+            else {
                 score += 11
-        }
+            }
+        
     }
 
     return score
 }
 
 //main game loop here
+initializeDeck()
 shuffleDeck()
 drawCard(true)
 drawCard(true)
