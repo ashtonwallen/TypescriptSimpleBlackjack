@@ -1,11 +1,4 @@
 
-var deck: string[];
-var playerHand: Array<string> = new Array()
-var dealerHand: Array<string> = new Array()
-
-function initializeDeck() {
-    deck = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
-}
 
 function drawCard(player: boolean){
     if (player){
@@ -53,7 +46,7 @@ function calculateScore(player: boolean): number {
             case "Q":
             case "J":
                 score += 10
-                break     
+                break
             default:
                 score += Number(card)
                 break
@@ -68,11 +61,30 @@ function calculateScore(player: boolean): number {
             else {
                 score += 11
             }
-        
+
     }
 
     return score
 }
+
+function getPlayerMove(): string
+{
+  var response = "";
+  if(calculateScore(playerHand) >= 17)
+  {
+    response = "S"
+  }
+  else
+  {
+    response = "H"
+  }
+  return response;
+}
+
+
+var deck: string[] = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+var playerHand: Array<string> = new Array()
+var dealerHand: Array<string> = new Array()
 
 //main game loop here
 initializeDeck()
@@ -81,3 +93,37 @@ drawCard(true)
 drawCard(true)
 drawCard(false)
 printStatus()
+var keepPlaying = true;
+while(keepPlaying)
+{
+  var playerTurn = true;
+  while(playerTurn)
+  {
+    if(calculateScore(playerHand) <= 21)
+    {
+      let response = getPlayerMove();
+      switch(response)
+      {
+        case "H": {
+          drawCard(true);
+          break;
+        }
+        case "S" {
+          playerTurn = false;
+          break;
+        }
+      }
+    }
+
+  }
+  bool dealerTurn = true;
+  while(dealerTurn)
+  {
+    while(calculateScore(dealerHand) <= 17)
+    {
+      drawCard(false);
+    }
+  }
+  printStatus();
+
+}
